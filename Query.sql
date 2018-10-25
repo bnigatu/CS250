@@ -193,3 +193,38 @@ FROM [dbo].[titles]
 where price = (select max(price) FROM [dbo].[titles]) or
 	  price = (select min(price) FROM [dbo].[titles]) ;
 
+
+
+-- Patern matching
+SELECT [title_id]
+      ,[title_name]
+      ,[type]
+      ,[pub_id]
+      ,[pages]
+      ,[price]
+      ,[sales]
+      ,[pubdate]
+      ,[contract]
+FROM [dbo].[titles]
+where pub_id like 'p0[2-3]'
+
+
+-- concatination
+select [title_name]
+      ,[type]
+	  ,[title_name]+' ' + [type] as using_plus
+	  ,concat([title_name],[type]) as using_concat
+from titles
+
+-- substring
+select substring([title_name],2,5),[title_name]
+from titles;
+
+-- trim
+select rtrim(ltrim([title_name]))
+from titles;
+
+
+-- position
+SELECT CHARINDEX('A',[title_name]),[title_name]
+FROM titles;

@@ -48,6 +48,7 @@ CREATE TABLE customerAudit
 	,lastName VARCHAR(20)
 	,lastUpdated DATETIME
 	,operation VARCHAR(20)
+	,update_by varchar(50)
 );
 GO
 
@@ -59,7 +60,8 @@ GO
  */
 IF OBJECT_ID('tr_aft_ins_customers','TR') IS NOT NULL
 	DROP TRIGGER tr_aft_ins_customers;
-go	
+go
+	
 CREATE TRIGGER tr_aft_ins_customers 
 ON dbo.customers
 AFTER UPDATE, INSERT, DELETE -- List one or more DML operations separated by comma here
@@ -71,22 +73,22 @@ BEGIN
 		IF EXISTS (SELECT * FROM inserted) AND 
 		   EXISTS (SELECT * FROM deleted) -- If we have values for both inserted and deleted that means this is UPDATE
 		BEGIN
-			insert into customerAudit(id,firstName, lastName,lastUpdated,operation)
-				select id, firstName,lastName,GETDATE() AS lastUpdated, 'UPDATE' AS operation 
+			insert into customerAudit(id,firstName, lastName,lastUpdated,operation,update_by)
+				select id, firstName,lastName,GETDATE() AS lastUpdated, 'UPDATE' AS operation, SYSTEM_USER as update_by 
 				from inserted;
 		END	
 		ELSE IF EXISTS (SELECT * FROM inserted) AND 
 				NOT EXISTS (SELECT * FROM deleted) -- If we only have values for inserted that means this is INSERT
 		BEGIN
-			insert into customerAudit(id,firstName, lastName,lastUpdated,operation)
-				select id, firstName,lastName,GETDATE() AS lastUpdated, 'INSERT' AS operation 
+			insert into customerAudit(id,firstName, lastName,lastUpdated,operation,update_by)
+				select id, firstName,lastName,GETDATE() AS lastUpdated, 'INSERT' AS operation, SYSTEM_USER as update_by 
 				from inserted;
 		END	
 		ELSE IF NOT EXISTS (SELECT * FROM inserted) AND 
 				EXISTS (SELECT * FROM deleted) -- If we only have values for deleted that means this is INSERT
 		BEGIN
-			insert into customerAudit(id,firstName, lastName,lastUpdated,operation)
-				select id, firstName,lastName,GETDATE() AS lastUpdated, 'DELETE' AS operation 
+			insert into customerAudit(id,firstName, lastName,lastUpdated,operation,update_by)
+				select id, firstName,lastName,GETDATE() AS lastUpdated, 'DELETE' AS operation, SYSTEM_USER as update_by 
 				from deleted;
 		END	
 	
@@ -114,3 +116,4 @@ from customers;
 
 select *
 from customerAudit;
+

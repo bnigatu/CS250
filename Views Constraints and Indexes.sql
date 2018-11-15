@@ -12,7 +12,7 @@
 	(
 		Col1 INT IDENTITY,
 		Col2 VARCHAR(20)
-		--CONSTRAINT pk_table1_col1 PRIMARY KEY (Col1)
+		--CONSTRAINT pk_table1_col1 PRIMARY KEY (Col1
 	);
 	go
 	--To create a primary key constraint for an existing table
@@ -22,7 +22,34 @@
  *Foreign Key constraint
  *Source: http://blog.reckonedforce.com/foreign-key-constraints/
  */
-	-- See the previous movie
+	-- create two new tables
+CREATE TABLE tblCourse(
+	CourseNumber VARCHAR(20),
+	CourseTitle  VARCHAR(100),
+	CONSTRAINT pk_Course PRIMARY KEY (CourseNumber)
+);
+go
+
+-- DROP TABLE tblStudentCourse;
+CREATE TABLE tblStudentCourse(	
+	StudentID	 INT,
+	CourseNumber VARCHAR(20)
+);
+go
+
+-- Add FOREIGN KEY
+ALTER TABLE tblStudentCourse   
+ADD CONSTRAINT FK_StudentCourse_Student FOREIGN KEY (StudentID)     
+    REFERENCES tblStudent (StudentID); 
+
+-- You can also use SSMS functionality to add relationship   
+ALTER TABLE tblStudentCourse   
+ADD CONSTRAINT FK_StudentCourse_Course FOREIGN KEY (CourseNumber)     
+    REFERENCES tblCourse (CourseNumber)     
+    ON DELETE CASCADE  -- optional  
+    ON UPDATE CASCADE  -- optional    
+;  
+go
 
 /*
  * Unique Key constraint

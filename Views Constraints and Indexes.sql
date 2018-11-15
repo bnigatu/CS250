@@ -22,6 +22,23 @@
  *Foreign Key constraint
  *Source: http://blog.reckonedforce.com/foreign-key-constraints/
  */
+
+--DROP TABLE tblStudent
+--GO
+CREATE TABLE tblStudent(
+	StudentID	INT IDENTITY,
+	FirstName	VARCHAR(50),
+	LastName	VARCHAR(50),
+	BirtDate	DATE  , --NOT null constraint
+	Tuition		MONEY,
+	DateUpdated DATETIME,
+	CONSTRAINT pk_Student_ID PRIMARY KEY (StudentID)
+	
+);
+go
+
+ALTER TABLE tblStudent
+ADD CONSTRAINT DF_BIRTHDATE default '01/01/1900' FOR BirtDate;
 	-- create two new tables
 CREATE TABLE tblCourse(
 	CourseNumber VARCHAR(20),
@@ -32,10 +49,11 @@ go
 
 -- DROP TABLE tblStudentCourse;
 CREATE TABLE tblStudentCourse(	
-	StudentID	 INT,
+	StudentID	 INT ,
 	CourseNumber VARCHAR(20)
 );
 go
+
 
 -- Add FOREIGN KEY
 ALTER TABLE tblStudentCourse   

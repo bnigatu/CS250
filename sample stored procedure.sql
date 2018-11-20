@@ -29,6 +29,12 @@ FROM country;
 Execute each batch of the script sequentially
 *************************************************************************************************/
 
+--CREATE DATABASE Sample
+--go
+
+use Sample;
+go
+
 /*==============================================================================================
  * 1) Create three tables to capture employee info
  *==============================================================================================*/
@@ -61,17 +67,18 @@ CREATE TABLE country
 go
 
 /*==============================================================================================
- * 1) The purpose of using WITH(NOLOCK) in SQL Server
+ * 2) Create Stored Procedure
  *==============================================================================================*/
 IF OBJECT_ID('pr_InsertEmployee','P') IS NOT NULL
-	DROP PROC pr_InsertEmployee;
+	DROP PROCEDURE pr_InsertEmployee;
 GO
-CREATE PROC pr_InsertEmployee   (@fName          VARCHAR(50), 
-                                 @lName          VARCHAR(50),
-								 @positon		 VARCHAR(50), 
-                                 @streetAddress  VARCHAR(100), 
-                                 @countryName	 VARCHAR(50)) 
+CREATE PROCEDURE pr_InsertEmployee   (@fName          VARCHAR(50), 
+									  @lName          VARCHAR(50),
+									  @positon		 VARCHAR(50), 
+									  @streetAddress  VARCHAR(100), 
+									  @countryName	 VARCHAR(50)) 
 AS 
+	-- Declare variables
 	DECLARE @Employee_ID INT =0;
 	DECLARE @Location_ID INT =0;
 BEGIN 

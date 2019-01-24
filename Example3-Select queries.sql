@@ -63,5 +63,17 @@ GROUP BY p.pub_id,p.pub_name
 ORDER BY count_of_books DESC;
 
 --Question
---1) Find a book with the highest book price
---2) List a book with the highest price for each publisher
+--1) Find a book with the highest book price?
+--2) List a book with the highest price for each publisher?
+--3) Give the total amount of book prices per a publisher?
+--4) List all managers in the organizational stracture that 
+--   employee 'E06' reports to?
+
+
+--Answer
+--1)
+--2)
+SELECT p.pub_id,p.pub_name, max(t.price) as MAX_PRICE
+FROM [dbo].[publishers] AS p
+JOIN [dbo].[titles] AS t ON p.pub_id = t.pub_id
+GROUP BY p.pub_id,p.pub_name

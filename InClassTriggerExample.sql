@@ -1,11 +1,15 @@
 
-
+if object_id('player','U') is not null
 drop table player;
+go
+
 create table player(
 	PlayerID int identity primary key,
 	PlayerName varchar(50),
 	NumberOfCharacter int,
 );
+
+if object_id('Character','U') is not null
 drop table [Character]
 create table [Character](
 	CharacterID int identity primary key,
@@ -13,7 +17,7 @@ create table [Character](
 	PlayerID int,
 	constraint fk_player foreign key (PlayerID) references Player(PlayerID)
 );
-
+go
 
 IF OBJECT_ID('tr_aft_ins_delete_Character','TR') IS NOT NULL
 	DROP TRIGGER tr_aft_ins_delete_Character;
@@ -40,13 +44,13 @@ END
 GO
 
 
-----
+--sample execution 1
 insert into player (PlayerName,NumberOfCharacter)
  values('James',0),
 	 ('Ruslan',0),
 	 ('Mark',0);
 
--- 
+--sample execution 2 
 insert into [Character](	
 	CharacterName,
 	PlayerID)
@@ -55,6 +59,7 @@ insert into [Character](
 		  ('Dwarf',2),
 		  ('Gandalf',1);
 
+--sample execution 3
 delete 
 from [Character]
 where CharacterID = 2;

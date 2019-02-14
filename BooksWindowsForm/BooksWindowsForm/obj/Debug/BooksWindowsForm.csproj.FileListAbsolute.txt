@@ -1,0 +1,9 @@
+C:\Users\nigbiz0122\CS250\BooksWindowsForm\BooksWindowsForm\obj\Debug\BooksWindowsForm.csprojResolveAssemblyReference.cache
+C:\Users\nigbiz0122\CS250\BooksWindowsForm\BooksWindowsForm\obj\Debug\BooksWindowsForm.Books.resources
+C:\Users\nigbiz0122\CS250\BooksWindowsForm\BooksWindowsForm\obj\Debug\BooksWindowsForm.Properties.Resources.resources
+C:\Users\nigbiz0122\CS250\BooksWindowsForm\BooksWindowsForm\obj\Debug\BooksWindowsForm.csproj.GenerateResource.Cache
+C:\Users\nigbiz0122\CS250\BooksWindowsForm\BooksWindowsForm\bin\Debug\BooksWindowsForm.exe.config
+C:\Users\nigbiz0122\CS250\BooksWindowsForm\BooksWindowsForm\bin\Debug\BooksWindowsForm.exe
+C:\Users\nigbiz0122\CS250\BooksWindowsForm\BooksWindowsForm\bin\Debug\BooksWindowsForm.pdb
+C:\Users\nigbiz0122\CS250\BooksWindowsForm\BooksWindowsForm\obj\Debug\BooksWindowsForm.exe
+C:\Users\nigbiz0122\CS250\BooksWindowsForm\BooksWindowsForm\obj\Debug\BooksWindowsForm.pdb

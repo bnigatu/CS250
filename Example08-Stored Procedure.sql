@@ -13,7 +13,11 @@
 *************************************************************************************************
 * Usage:
 
-EXEC pr_InsertEmployee @fName = 'John', @lName = 'Doe', @positon = 'Manager', @streetAddress= '123 E Aurora St', @countryName= 'USA' ;
+EXEC pr_InsertEmployee @fName = 'John', 
+                       @lName = 'Doe', 
+					   @positon = 'Manager', 
+					   @streetAddress= '123 E Aurora St', 
+					   @countryName= 'USA' ;
 go
 
 SELECT *
@@ -32,7 +36,7 @@ Execute each batch of the script sequentially
 --CREATE DATABASE Sample
 --go
 
-use Sample;
+use test;
 go
 
 /*==============================================================================================
@@ -110,3 +114,47 @@ BEGIN
 go
 
 
+-- Exercise 
+
+--write a stored procedure that will accept publisher name
+--and return all title names that were published by that publisher
+
+
+IF OBJECT_ID('pr_SelectPublisherTitles','P') IS NOT NULL
+	DROP PROCEDURE pr_SelectPublisherTitles;
+go
+CREATE PROCEDURE pr_SelectPublisherTitles (@pub_name varchar(20))
+AS
+	SELECT t.title_name
+	FROM [dbo].[publishers] as p
+	JOIN [dbo].[titles] as t on p.pub_id = t.pub_id
+	WHERE p.pub_name = @pub_name;
+go
+
+exec pr_SelectPublisherTitles @pub_name='Schadenfreude Press';
+
+-- Exercise 2
+-- create a procedure that will insert a value to a publisher table
+
+
+IF OBJECT_ID('pr_InsertPublisher','P') IS NOT NULL
+	DROP PROCEDURE pr_InsertPublisher;
+go
+CREATE PROCEDURE pr_InsertPublisher (@pub_name varchar(20),
+								     @city varchar(15),
+									 @state char(2),
+									 @country varchar(15))
+AS
+	DECLARE @pub_id varchar(10);
+	select top 1 @pub_id = 'P'+ cast(right(pub_id,len(pub_id)-1) + 1 as varchar(9))
+	from publishers
+	order by pub_id desc;
+
+	INSERT INTO [dbo].[publishers] (pub_id,pub_name,city,state,country)
+	VALUES(@pub_id, @pub_name,@city,@state,@country);
+go
+
+exec pr_InsertPublisher @pub_name='CTU',
+					    @city='Aurora',
+						@state='CO',
+						@country='USA';

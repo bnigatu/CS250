@@ -27,7 +27,10 @@ Execute each batch of the script sequentially
  * Original MySQL script https://github.com/phpcontrols/inventory-manager/blob/master/db/InventoryManager_2017-06-22.sql
  */
 use master;
-DROP DATABASE IF EXISTS inventory;
+if db_id('inventory') is not null
+	DROP DATABASE  inventory;
+go
+
 CREATE DATABASE inventory;
 GO
 
@@ -38,9 +41,7 @@ GO
  * Products
  */
 
-DROP TABLE
 
-IF EXISTS Products;
 CREATE TABLE Products (
 	id INT NOT NULL
 	,ProductName VARCHAR(255) 
@@ -90,9 +91,7 @@ VALUES
 /*
  * Orders
  */
-DROP TABLE
 
-IF EXISTS Orders;
 CREATE TABLE Orders (
 	 id INT NOT NULL
 	,Title VARCHAR(255) 
@@ -151,9 +150,7 @@ VALUES
 /* 
  * Suppliers 
  */
-DROP TABLE
 
-IF EXISTS Suppliers;
 	CREATE TABLE Suppliers (
 		id INT NOT NULL
 		,supplier VARCHAR(255) NOT NULL DEFAULT ''
@@ -173,7 +170,7 @@ VALUES
 /* 
  * Purchases 
  */
-DROP TABLE IF EXISTS Purchases;
+
 
 CREATE TABLE Purchases (
 	 id INT NOT NULL
